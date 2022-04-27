@@ -1,7 +1,8 @@
-PImage skyImg, lifeImg, soldierImg, cabbageImg;
-PImage soil0, soil1, soil2, soil3, soil4, soil5, stone1, stone2;
 PImage groundhogImg, groundhogDownImg, groundhogLeftImg, groundhogRightImg;
 PImage titleImg, gameoverImg, startNormalImg, startHoveredImg, restartNormalImg, restartHoveredImg;
+PImage skyImg, lifeImg, soldierImg, cabbageImg;
+PImage soil0, soil1, soil2, soil3, soil4, soil5, stone1, stone2;
+
 
 final int start = 0;
 final int run = 3;
@@ -13,7 +14,6 @@ final int tom = 420;
 final int left = 248;
 final int right = 392;
 
-
 int x=0, y=0;
 int soldierX, soldierY;
 int soldierSize;
@@ -22,13 +22,10 @@ float groundhogX;
 float groundhogY;
 int groundhogSize;
 
-
 final int soilSize = 80;
 int cabbageX;
 int cabbageY;
 int cabbageSize;
-
-
 int hogState;
 boolean downPressed = false;
 boolean leftPressed = false;
@@ -39,7 +36,6 @@ final int hgl=3;
 final int hgr=4;
 float t;
 float moveY=0;
-
 
 
 int playerHealth = 0;
@@ -62,8 +58,6 @@ void setup() {
   soil5 = loadImage("img/soil5.png");
   stone1 = loadImage("img/stone1.png");
   stone2 = loadImage("img/stone2.png");
-
-
   soldierImg = loadImage("img/soldier.png");
   cabbageImg = loadImage("img/cabbage.png");
   groundhogImg = loadImage("img/groundhogIdle.png");
@@ -71,30 +65,24 @@ void setup() {
   groundhogLeftImg = loadImage("img/groundhogLeft.png");
   groundhogRightImg = loadImage("img/groundhogRight.png");
   titleImg = loadImage("img/title.jpg");
-  
-  
   startNormalImg = loadImage("img/startNormal.png");
   startHoveredImg = loadImage("img/startHovered.png");
   restartNormalImg = loadImage("img/restartNormal.png");
   restartHoveredImg = loadImage("img/restartHovered.png");
   gameoverImg = loadImage("img/gameover.jpg");
 
-
   playerHealth = 4;
-
 
   soldierX = -160;
   soldierY = 80*floor(random(2, 6));
   soldierSize = 80;
-  soldierSpeed = 3;//soldier
-
+  soldierSpeed = 3;
 
   groundhogX=320.0;
   groundhogY=80.0;
   groundhogSize=80;
   t=0.0;
   hogState = ldle;
-
 
   cabbageX = 80*floor(random(0, 8));
   cabbageY = 80*floor(random(2, 6));
@@ -118,9 +106,16 @@ void draw() {
       image(startHoveredImg, left, up);
       if (mousePressed) {
         gameState = run;
-      }
-    } else {
+        
+        
+    }
+    } 
+    
+    else {
       image(startNormalImg, left, up);
+      
+      
+      
     }
     break;
 
@@ -147,25 +142,25 @@ void draw() {
     pushMatrix();
     translate(0,moveY);
 
-        for (int i=0; i<width; i+=soilSize) {
-          for (int n=160; n<160+soilSize*4; n+=soilSize) {
+    for (int i=0; i<width; i+=soilSize) {
+        for (int n=160; n<160+soilSize*4; n+=soilSize) {
             image(soil0, i, n);
           }
-          for (int n=480; n<480+soilSize*4; n+=soilSize) {
+        for (int n=480; n<480+soilSize*4; n+=soilSize) {
             image(soil1, i, n);
           }
-          for (int n=800; n<800+soilSize*4; n+=soilSize) {
+        for (int n=800; n<800+soilSize*4; n+=soilSize) {
             image(soil2, i, n);
           }
-          for (int n=1120; n<1120+soilSize*4; n+=soilSize) {
+        for (int n=1120; n<1120+soilSize*4; n+=soilSize) {
             image(soil3, i, n);
           }
-          for (int n=1440; n<1440+soilSize*4; n+=soilSize) {
+        for (int n=1440; n<1440+soilSize*4; n+=soilSize) {
             image(soil4, i, n);
           }
-          for (int n=1760; n<1760+soilSize*4; n+=soilSize) {
+        for (int n=1760; n<1760+soilSize*4; n+=soilSize) {
             image(soil5, i, n);
-          }
+        }
         }
     
 
@@ -200,7 +195,7 @@ void draw() {
               y = (n+4)*soilSize;
             }
             image(stone1, x, y);
-          }
+        }
         }
         for (int i=0; i<4; i++) {
           for (int n=0; n<4; n++) {
@@ -216,11 +211,11 @@ void draw() {
               y = (n+3)*soilSize;
             }
             image(stone1, x, y);
-          }
+        }
         }
         popMatrix();
     
-        //stone 17-24
+        //stone17-24
         pushMatrix();
         translate(-soilSize*6, 160+soilSize*16);
         y=0;
@@ -299,16 +294,18 @@ void draw() {
           hogState=ldle;
           if (groundhogX%soilSize < 10) {
             groundhogX=groundhogX-groundhogX%soilSize;
-          } else {
+          }
+          else {
             groundhogX=groundhogX-groundhogX%soilSize+soilSize;//remove the float one, add the right number
           }
           if (groundhogY%soilSize < 10) {
             groundhogY=groundhogY-groundhogY%soilSize;
-          } else {
+          } 
+          else {
             groundhogY=groundhogY-groundhogY%soilSize+soilSize;
           }
         }
-        //hog touch soldier
+        //soldier
         if (groundhogX < soldierX+soldierSize &&
           groundhogX+groundhogSize > soldierX &&
           groundhogY < soldierY+soldierSize &&
@@ -381,13 +378,16 @@ void draw() {
         soldierY = 80*floor(random(2, 6));
         cabbageX = 80*floor(random(0, 8));
         cabbageY = 80*floor(random(2, 6));
-      }
-    } else {
+    }
+    } 
+    else {
       image(restartNormalImg, left, up);
     }
     break;
-  }
+    
 }
+}
+
 
 void keyPressed() {
   if (key==CODED) {
@@ -413,7 +413,7 @@ void keyPressed() {
         t=0.0;
       }
       break;
-    }
+  }
   }
 
 
@@ -435,5 +435,8 @@ void keyPressed() {
   case 'd':
     if (playerHealth < 5) playerHealth ++;
     break;
-  }
+    
+    
+    
+}
 }
